@@ -1,2 +1,2 @@
-# machine-learning
+# ML
 Implementation of machine learning algorithms

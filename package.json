@@ -1,0 +1,21 @@
+{
+  "name": "ML",
+  "version": "1.0.0",
+  "description": "Implementation of machine learning algorithms",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo pass"
+  },
+  "keywords": [
+    "Machine Learning",
+    "Deep Learning",
+    "Linear Regression",
+    "Neural Networks",
+    "Data Science"
+  ],
+  "author": "Collin Grimm <collin.grimm@protonmail.ch> (https://collingrimm.me)",
+  "license": "MIT",
+  "dependencies": {
+   
+  }
+}
