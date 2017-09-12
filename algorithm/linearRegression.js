@@ -1,4 +1,5 @@
 var fs = require('fs');
+var ML = require('../ML.js');
 
 // helper function
 function csvToArray(data) {
@@ -47,7 +48,7 @@ function gradientDescentRunner(points, starting_b, starting_m, learningRate, ite
 
 // init
 function init() {
-    var points = csvToArray(fs.readFileSync(`${__dirname}/dataFiles/linearRegression.csv`).toString());
+    var points = csvToArray(fs.readFileSync(`${ML.data}/linearRegression.csv`).toString());
     // hyper parameters
     var learningRate = 0.0001;
     // y = mx + b
