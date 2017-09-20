@@ -16,7 +16,7 @@ y = tf.placeholder('float', shape=[None, 1])
 linear = snt.Linear(1)
 H = linear(x)
 
-loss = tf.reduce_mean(tf.pow((y - H), 2))
+loss = tf.reduce_mean(tf.squared_difference(y, H))
 model = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
 
 init = tf.global_variables_initializer()

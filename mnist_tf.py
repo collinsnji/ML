@@ -18,8 +18,7 @@ def main():
     num_hidden = 800
     layer1 = snt.Linear(num_hidden, name='linear1')(x)
     hidden1 = tf.nn.relu(layer1)
-    hidden2 = tf.nn.relu(hidden1)
-    outputs = snt.Linear(10)(hidden2)
+    outputs = snt.Linear(10)(hidden1)
 
     # Loss
     one_hot = tf.one_hot(y, 10)
