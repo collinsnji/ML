@@ -2,9 +2,9 @@
 
 # import modules
 import random
+from collections import deque
 import gym
 import numpy as np
-from collections import deque
 import tensorflow as tf
 import sonnet as snt
 
@@ -26,13 +26,8 @@ class DQN:
         self.epsilon_min = 0.01
         self.epsilon_decay = 0.995
         self.learning_rate = 0.001
-        
-        #import pdb; pdb.set_trace()
         self.model = self._build_model()
-
         self.action_values = self.model(self.state)
-        #select_action = tf.one_hot(self.action, action_size)
-        #prediction = tf.reduce_sum(select_action * self.action_values, -1)
         self.loss = tf.reduce_mean((self.action_values - self.target)**2)
         self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
         init = tf.global_variables_initializer()
@@ -56,7 +51,7 @@ class DQN:
         self.memory.append((state, action, reward, next_state, done))
         
     def act(self, state):
-        if np.random.rand() <= self.epsilon:
+        if np.random.random() <= self.epsilon:
             return random.randrange(self.action_size)
         
         act_values = self.session.run(self.action_values, feed_dict={self.state: state})
@@ -74,11 +69,10 @@ class DQN:
             target_f[0][action] = target
             values = self.session.run({'_': self.train_op, 'loss': self.loss, 'action_value': self.action_values}, 
                                       feed_dict={self.state: state, self.target: target_f})
-            print(values['av'], target_f)
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
 
-def Init():
+def main():
     env = gym.make('CartPole-v1')
     
     state_size = env.observation_space.shape[0]
@@ -103,7 +97,7 @@ def Init():
                 agent.replay(batch_size)
             if done:
                 print("episode: {}/{}, score: {}, e: {:.2}"
-                    .format(e, EPISODES, accumulated_reward, agent.epsilon))
+                     .format(e, EPISODES, accumulated_reward, agent.epsilon))
                 break
 if __name__ == "__main__":
-    Init()
+    main()
